@@ -439,7 +439,7 @@ class AccessToken(OAuthView, Mixin):
         Return an error response to the client with default status code of
         *400* stating the error as outlined in :draft:`5.2`.
         """
-        return HttpResponse(json.dumps(error), mimetype=mimetype,
+        return HttpResponse(json.dumps(error), content_type=mimetype,
                 status=status, **kwargs)
 
     def access_token_response(self, access_token):
@@ -453,7 +453,7 @@ class AccessToken(OAuthView, Mixin):
                 'expires_in': access_token.get_expire_delta(),
                 'refresh_token': access_token.refresh_token.token,
                 'scope': ' '.join(scope.names(access_token.scope)),
-            }), mimetype='application/json'
+            }), content_type='application/json'
         )
 
     def authorization_code(self, request, data, client):
